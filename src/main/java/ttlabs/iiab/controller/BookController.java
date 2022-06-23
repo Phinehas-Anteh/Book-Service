@@ -26,7 +26,7 @@ public class BookController {
 
     @PostMapping("/create-book")
     public ResponseEntity<BookStatusResponse> addBook(@RequestBody BookRequest bookRequest) {
-        return new ResponseEntity<>(new BookStatusResponse(bookService.addBook(bookRequest)), HttpStatus.CREATED);
+        return new ResponseEntity<>(bookService.addBook(bookRequest), HttpStatus.CREATED);
     }
 
     @GetMapping("/list-of-books/{author}")
@@ -36,6 +36,6 @@ public class BookController {
 
     @DeleteMapping("/remove-book-by-title")
     public ResponseEntity<BookStatusResponse> deleteBookByTitle(@RequestBody BookByTitleRequest request) {
-        return new ResponseEntity<>(new BookStatusResponse(bookService.deleteBookByTitle(request.getTitle())), HttpStatus.OK);
+        return new ResponseEntity<>(bookService.deleteBookByTitle(request.getTitle()), HttpStatus.OK);
     }
 }

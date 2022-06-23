@@ -2,10 +2,11 @@ package ttlabs.iiab.service;
 
 import ttlabs.iiab.domain.request.BookRequest;
 import ttlabs.iiab.domain.response.BookResponse;
+import ttlabs.iiab.domain.response.BookStatusResponse;
 
 public interface BookService {
     BookResponse getListOfBooks();
-    String addBook(BookRequest bookRequest);
+    BookStatusResponse addBook(BookRequest bookRequest);
     BookResponse getBookByAuthor(String name);
-    String deleteBookByTitle(String title);
+    BookStatusResponse deleteBookByTitle(String title);
 }

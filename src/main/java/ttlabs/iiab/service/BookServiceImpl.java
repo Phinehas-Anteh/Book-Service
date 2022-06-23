@@ -5,6 +5,7 @@ import ttlabs.iiab.converter.BookToBookDtoConverter;
 import ttlabs.iiab.domain.Book;
 import ttlabs.iiab.domain.request.BookRequest;
 import ttlabs.iiab.domain.response.BookResponse;
+import ttlabs.iiab.domain.response.BookStatusResponse;
 import ttlabs.iiab.exception.BookDoesNotExistByAuthorException;
 import ttlabs.iiab.respository.BookRepository;
 
@@ -22,12 +23,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public String addBook(BookRequest bookRequest) {
+    public BookStatusResponse addBook(BookRequest bookRequest) {
         if (bookRepository.existsByAuthorAndTitle(bookRequest.getAuthor(), bookRequest.getTitle())) {
-            return "Book already exists";
+            return new BookStatusResponse("Book already exists");
         }
         bookRepository.save(new Book(bookRequest));
-        return "Book has been added";
+        return new BookStatusResponse("Book has been added");
     }
 
     @Override
@@ -39,11 +40,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public String deleteBookByTitle(String title) {
+    public BookStatusResponse deleteBookByTitle(String title) {
         if (bookRepository.existsByTitle(title)) {
             bookRepository.deleteByTitle(title);
-            return "Book has been deleted";
+            return new BookStatusResponse("Book has been deleted");
         }
-        return "Book can not be found for it to be deleted";
+        return new BookStatusResponse("Book can not be found for it to be deleted");
     }
 }
